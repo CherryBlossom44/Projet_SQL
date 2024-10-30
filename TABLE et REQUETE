@@ -1,0 +1,100 @@
+DROP TABLE IF EXISTS mine_minerai;
+DROP TABLE IF EXISTS mineur;
+DROP TABLE IF EXISTS mine;
+DROP TABLE IF EXISTS minerai;
+
+CREATE TABLE mine (
+   Id_mine INT NOT NULL,
+   Nom VARCHAR(60) NOT NULL,
+   Lieu VARCHAR(60),
+   Département VARCHAR(60),
+   Fermeture INT,
+   minerais_existant VARCHAR(40),
+   PRIMARY KEY (Id_mine)
+);
+
+CREATE TABLE mineur (
+   Id_mineur INT NOT NULL,
+   Nom VARCHAR(40),
+   Prenom VARCHAR(40),
+   age INT,
+   ann_exp INT,
+   Id_mine INT,
+   PRIMARY KEY (Id_mineur),
+   FOREIGN KEY (Id_mine) REFERENCES mine(Id_mine) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE minerai (
+   Nom_minerai VARCHAR(40) NOT NULL,
+   rareter VARCHAR(40),
+   prix_Kilo INT,
+   PRIMARY KEY (Nom_minerai)
+);
+
+CREATE TABLE mine_minerai (
+   minerais_existant VARCHAR(40),
+   Nom_minerai VARCHAR(40),
+   PRIMARY KEY (minerais_existant, Nom_minerai),
+   FOREIGN KEY (minerais_existant) REFERENCES mine(minerais_existant),
+   FOREIGN KEY (Nom_minerai) REFERENCES minerai(Nom_minerai)
+);
+
+INSERT INTO mine (Id_mine, Nom, Lieu, Département, Fermeture, minerais_existant) 
+VALUES 
+(1, "mine de Bentaillou", "Pyrénée", "Ariège", 1954, "Cuivre"),
+(2, "mine de Salsigne", "Carcassonne", "Aude", 2004, "Zinc"),
+(3, "mine de La Brède", "Auvergne-Rhône-Alpes", "Puy-de-Dôme", 1981, "Molybdene"),
+(4, "mine de Pont-Péan", "Pont-Péan", "Ille-et-Vilaine", 1904, "Or"),
+(5, "mine de La Chapelle-en-Valgaudémar", "Chapelle-en-Valgaudémar", "Hautes-Alpes", 1901, "Or"),
+(6, "mine de La Barre", "Barre", "Puy-de-Dôme", 1966, "Tungstene"),
+(7, "mine de Fonsante", "Fonsante", "Tarn", 1987, "Etain"),
+(8, "mine de Voltenne", "Voltenne", "Saône-et-Loire", 1972, "Fluorine"),
+(9, "mine de Château-Lambert", "Château-Lambert", "Haute-Saône", 1945, "Plomb"),
+(10, "mine Saint-Parize-le-Châtel", "Saint-Parize-le-Châtel", "Nièvre", NULL, "Antimoine"),
+(11, "mine de La Villeder", "Villeder", "Morbihan", 1909, "Plomb"),
+(12, "mine de La Chapelle-en-Valgaudémar", "Chapelle-en-Valgaudémar", "Hautes-Alpes", 1900, "Zinc");
+
+INSERT INTO mineur (Id_mineur, Nom, Prenom, age, ann_exp, Id_mine) 
+VALUES 
+(1, "Jacque", "Leroy", 80, 45, 1),
+(2, "Mellissa", "Charpentier", 50, 32, 2),
+(3, "Paul", "Leroy", 20, 1, 3),
+(4, "Samuel", "Brun", 23, 10, 4),
+(5, "Sarah", "Leblanc", 31, 5, 5),
+(6, "Fidelia", "Brun", 42, 20, 6),
+(7, "John", "Lefaure", 63, 22, 6),
+(8, "Brandon", "Bonnet", 27, 6, 8),
+(9, "Jason", "Bonnet", 36, 12, 9),
+(10, "Mike", "Dupond", 32, 12, 10),
+(11, "Lola", "Dupont", 24, 1, 11),
+(12, "Louna", "Dupont", 25, 2, 12),
+(13, "Nael", "Perrot", 67, 15, 6),
+(14, "Arthur", "Famont", 77, 30, 7),
+(15, "Rebecca", "Charron", 22, 1, 8),
+(16, "Jeff", "Granger", 33, 10, 3);
+
+INSERT INTO minerai (Nom_minerai, rareter, prix_Kilo) 
+VALUES 
+("Or", "commun", 80570),
+("Helium", "rare", 17),
+("Plomb", "commun", 2.24),
+("Zinc", "commun", 2.37),
+("Antimoine", "rare", 5.88),
+("Tungstene", "rare", 0.33),
+("Cuivre", "tres rare", 9.98),
+("Fluorine", "tres rare", 1900),
+("Etain", "tres rare", 17),
+("Molybdene", "tres rare", 110);
+
+INSERT INTO mine_minerai (minerais_existant, Nom_minerai) 
+VALUES 
+("Cuivre", "Cuivre"),
+("Zinc", "Zinc"),
+("Or", "Or"),
+("Antimoine", "Antimoine"),
+("Plomb", "Plomb"),
+("Fluorine", "Fluorine"),
+("Molybdene", "Molybdene"),
+("Tungstene", "Tungstene"),
+("Etain", "Etain");
+
